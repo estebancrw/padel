@@ -1,0 +1,9 @@
+{
+  "timezone": "America/Mexico_City",
+  "group_name": "Padel Group",
+  "message_template": "Buenos dias! Recordatorio:\n\n🏓 Semana {week}: {name} agenda la cancha! 🎾\n\nNo olvides:\n• Confirmar asistencia\n• Revisar las condiciones climáticas\n\n¡Nos vemos el miercoles en la cancha! 🎾",
+  "schedule": {
+    "days": ["Sunday", "Monday", "Tuesday"],
+    "time": "09:00"
+  }
+}

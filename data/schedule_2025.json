@@ -1,0 +1,18 @@
+{
+  "default_rotation": ["Esteban", "Chema", "Adrian", "Chito", "Vanish", "JC"],
+  "start_week": "2025-W31",
+  "schedule_overrides": {
+    "2025-W31": "Esteban",
+    "2025-W32": "Chema",
+    "2025-W33": "Adrian",
+    "2025-W34": "Chito",
+    "2025-W35": "Vanish",
+    "2025-W36": "JC",
+    "2025-W37": "Esteban",
+    "2025-W38": "Chema"
+  },
+  "vacation_weeks": {
+  },
+  "special_messages": {
+  }
+}
