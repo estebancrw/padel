@@ -31,7 +31,6 @@ venv.bak/
 
 # uv
 .venv/
-uv.lock
 
 # Testing
 .tox/
