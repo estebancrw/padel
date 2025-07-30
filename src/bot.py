@@ -11,11 +11,6 @@ from dotenv import load_dotenv
 from telegram import Bot
 from telegram.error import TelegramError
 
-# Load .env file if it exists
-env_path = Path(__file__).parent.parent / '.env'
-if env_path.exists():
-    load_dotenv(env_path)
-
 from src.config import (
     get_bot_token,
     get_chat_id,
@@ -31,6 +26,11 @@ from src.rotation import (
     get_responsible_person,
     load_schedule_data,
 )
+
+# Load .env file if it exists
+env_path = Path(__file__).parent.parent / ".env"
+if env_path.exists():
+    load_dotenv(env_path)
 
 # Configure logging
 logging.basicConfig(

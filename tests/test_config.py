@@ -25,10 +25,9 @@ class TestConfigLoading:
 
     def test_load_config_valid_json(self):
         """Test loading valid JSON configuration."""
-        mock_json = json.dumps({
-            "timezone": "America/Mexico_City",
-            "message_template": "Hello {name}!"
-        })
+        mock_json = json.dumps(
+            {"timezone": "America/Mexico_City", "message_template": "Hello {name}!"}
+        )
 
         with patch("builtins.open", mock_open(read_data=mock_json)):
             config = load_config(Path("mock_config.json"))

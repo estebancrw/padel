@@ -1,6 +1,5 @@
 """Unit tests for rotation logic."""
 
-
 import pytest
 
 from src.rotation import (
@@ -37,7 +36,7 @@ class TestRotationLogic:
             "start_week": "2025-W31",
             "schedule_overrides": {},
             "vacation_weeks": {},
-            "special_messages": {}
+            "special_messages": {},
         }
 
     @pytest.fixture
@@ -48,15 +47,13 @@ class TestRotationLogic:
             "start_week": "2025-W31",
             "schedule_overrides": {
                 "2025-W32": "Adrian",  # Swap
-                "2025-W35": "Esteban"  # Another swap
+                "2025-W35": "Esteban",  # Another swap
             },
             "vacation_weeks": {
                 "Chito": ["2025-W34"],
-                "Adrian": ["2025-W40", "2025-W41"]
+                "Adrian": ["2025-W40", "2025-W41"],
             },
-            "special_messages": {
-                "2025-W52": "🎄 Holiday week: {name} is responsible!"
-            }
+            "special_messages": {"2025-W52": "🎄 Holiday week: {name} is responsible!"},
         }
 
     def test_default_rotation_sequence(self, basic_schedule):
@@ -98,9 +95,7 @@ class TestRotationLogic:
 
     def test_get_vacation_coverage_function(self):
         """Test the vacation coverage helper function."""
-        schedule = {
-            "default_rotation": ["A", "B", "C", "D"]
-        }
+        schedule = {"default_rotation": ["A", "B", "C", "D"]}
         assert get_vacation_coverage("A", "2025-W01", schedule) == "B"
         assert get_vacation_coverage("D", "2025-W01", schedule) == "A"  # Wraps around
         # Z not in rotation
@@ -149,7 +144,7 @@ class TestEdgeCases:
             "start_week": "2025-W01",
             "schedule_overrides": {},
             "vacation_weeks": {},
-            "special_messages": {}
+            "special_messages": {},
         }
         # 2027-W01 compared to 2025-W01:
         # This is exactly 104 weeks later (2 years * 52 weeks)
@@ -164,7 +159,7 @@ class TestEdgeCases:
             "start_week": "2025-W31",
             "schedule_overrides": {},
             "vacation_weeks": {},
-            "special_messages": {}
+            "special_messages": {},
         }
         # Week 30 is before start, but should still calculate correctly
         # 30 - 31 = -1, -1 % 3 = 2
@@ -178,7 +173,7 @@ class TestEdgeCases:
             "start_week": "2025-W52",
             "schedule_overrides": {},
             "vacation_weeks": {},
-            "special_messages": {}
+            "special_messages": {},
         }
         assert get_responsible_person("2025-W52", schedule)[0] == "A"
         assert get_responsible_person("2026-W01", schedule)[0] == "B"
