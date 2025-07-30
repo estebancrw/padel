@@ -1,0 +1,58 @@
+name: Send Padel Message
+
+on:
+  schedule:
+    # Run at 15:00 UTC (9:00 AM Mexico City) on Sunday, Monday, Tuesday
+    - cron: '0 15 * * 0,1,2'
+  
+  # Allow manual triggering for testing
+  workflow_dispatch:
+    inputs:
+      test_message:
+        description: 'Optional test message override'
+        required: false
+        type: string
+      force_week:
+        description: 'Force specific week number for rotation testing'
+        required: false
+        type: number
+
+jobs:
+  send-message:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+      
+      - name: Set up Python
+        run: uv python install
+      
+      - name: Install dependencies
+        run: uv sync
+      
+      - name: Send Telegram message
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TEST_MESSAGE: ${{ github.event.inputs.test_message }}
+          FORCE_WEEK: ${{ github.event.inputs.force_week }}
+        run: |
+          echo "Running bot at $(date)"
+          uv run python src/bot.py
+      
+      - name: Log completion
+        if: always()
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "✅ Message sent successfully!"
+          else
+            echo "❌ Failed to send message"
+            exit 1
+          fi
