@@ -5,9 +5,16 @@ import argparse
 import asyncio
 import logging
 import sys
+from pathlib import Path
 
+from dotenv import load_dotenv
 from telegram import Bot
 from telegram.error import TelegramError
+
+# Load .env file if it exists
+env_path = Path(__file__).parent.parent / '.env'
+if env_path.exists():
+    load_dotenv(env_path)
 
 from src.config import (
     get_bot_token,
